@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AskPupkin</title>
+    <link href="css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar bg-warning-subtle border-bottom border-dark">
+        <div class="container">
+            <h1><a class="navbar-brand fs-1" href="#">AskPupkin</a></h1>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2 border border border-dark" type="search" style="width: 400px"
+                    placeholder="Search" aria-label="search">
+            </form>
+            <form class="d-flex" role="search">
+                <button class="btn btn-success border border-dark border-2" type="submit">ASK</button>
+            </form>
+            <profile class="d-flex align-items-center gap-2">
+                <div class="border border-dark" style="width: 50px; height: 50px;">
+                    <img src="ask.png" class="img-thumbnail" alt="user_img">
+                </div>
+                <div class="content">
+                    <div class="content_name fw-bold">Dr. Pepper</div>
+                    <div class="content_links">
+                        <a href="#">Settings</a>
+                        <a class="ms-1" href="#">Log out</a>
+                    </div>
+                </div>
+            </profile>
+        </div>
+    </nav>
+
+    <main class="container mt-2" style="height: 710px">
+
+        <div class="row">
+
+            <content class="col ms-5">
+
+                <header class="d-flex align-items-center gap-4 m-4">
+                    <h2 class="">Settings:</h2>
+                    <h2 class="">DR. Pepper</h2>
+                </header>
+
+
+
+                <table class="table table-borderless">
+
+                    <tbody>
+
+                        <tr>
+                            <th style="width: 15%;" scope="row"></th>
+                            <td style="width: 40%;">
+                                <div class="input-group mb-3" style="width: 500px;">
+                                    <span class="input-group-text border border-dark border-2" style="width: 120px;"
+                                        id="inputGroup-sizing-default">Login</span>
+                                    <input type="text" class="form-control border border-dark border-2 border-start-0"
+                                        aria-label=""
+                                        aria-describedby="inputGroup-sizing-default">
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row"></th>
+                            <td>
+                                <div class="input-group mb-3" style="width: 500px;">
+                                    <span class="input-group-text border border-dark border-2" style="width: 120px;"
+                                        id="inputGroup-sizing-default">Email</span>
+                                    <input type="Email" class="form-control border border-dark border-2 border-start-0"
+                                        aria-label="Пример размера поля ввода"
+                                        aria-describedby="inputGroup-sizing-default">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row"></th>
+                            <td colspan="2">
+                                <div class="input-group mb-3" style="width: 500px;">
+                                    <span class="input-group-text border border-dark border-2" style="width: 120px;"
+                                        id="inputGroup-sizing-default">NickName</span>
+                                    <input type="text" class="form-control border border-dark border-2 border-start-0"
+                                        aria-label="Пример размера поля ввода"
+                                        aria-describedby="inputGroup-sizing-default">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row"></th>
+                            <td colspan="">
+                                <div class="input-group mb-3" style="width: 150px; height: 150px;">
+                                    <img class="img-thumbnail border border-dark border-2" src="ask.png"
+                                        alt="ask ilustration">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row"></th>
+                            <td colspan="">
+                                <div class="input-group mb-3" style="width: 500px;">
+                                    <input type="file" class="form-control border border-dark border-2"
+                                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                                        aria-label="Загрузка">
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 15%;" scope="row"></th>
+                            <td style="width: 40%;">
+                                <div class="form-floating mb-3">
+                                    <button class="btn btn-outline-success border-sucess border-2"
+                                        type="submit">Save</button>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+            </content>
+
+            <aside class="col-3">
+                <div class="mt-5 ms-3">
+                    <h2>Popular Tags</h2>
+                    <a class="me-2 text-dark link-underline link-underline-opacity-0" href="#">perl</a>
+                    <a class="me-2 fs-5 text-danger link-underline link-underline-opacity-0" href="#">pyhon</a>
+                    <a class="me-2 text-dark link-underline link-underline-opacity-0" href="#">TechnoPark</a>
+                    <a class="me-2 fs-5 text-danger link-underline link-underline-opacity-0" href="#">MySQL</a>
+                    <a class="me-2 fs-5 text-success link-underline link-underline-opacity-0" href="#">django</a>
+                    <a class="me-2 text-dark link-underline link-underline-opacity-0" href="#">Mail.Ru</a>
+                    <a class="me-2 text-dark link-underline link-underline-opacity-0" href="#">Voloshin</a>
+                    <a class="me-2 text-warning link-underline link-underline-opacity-0" href="#">Firefox</a>
+                </div>
+                <div class="m-3">
+                    <h2>Best Members</h2>
+                    <p><a class="me-2" href="#">Mr.Freeman</a></p>
+                    <p><a class="me-2" href="#">Dr.House</a></p>
+                    <p><a class="me-2" href="#">Bender</a></p>
+                    <p><a class="me-2" href="#">Queen Victoria</a></p>
+                    <p><a class="me-2" href="#">V.Pupkin</a></p>
+                </div>
+            </aside>
+
+        </div>
+
+    </main>
+
+    <footer class="bg-warning-subtle">
+        <div class="p-2  align-items-center">
+            <div>
+                <h6 class="me-3">AskPupkin</h6>
+            </div>
+            <div>
+                <div class="content_links d-flex">
+                    <p class="me-2">Design by: KDA WEB-13</p>
+                    <a class="me-1" href="#">Telrgram</a>
+                    <a class="me-1" href="#">VK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/bootstrap.bundle.js"> </script>
+</body>
+
+</html>

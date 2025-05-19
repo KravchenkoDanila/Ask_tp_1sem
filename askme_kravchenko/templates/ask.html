@@ -1,0 +1,38 @@
+{% extends "inc/base.html" %}
+
+        {% block "content" %}
+
+            <content class="col">
+
+                <header class="d-flex align-items-center gap-4 m-2 ">
+                    <h2 class="">New Qwestions</h2>
+                </header>
+
+                <div class="form-floating m-3">
+                    <textarea class="form-control border border-dark border-2" placeholder="Оставьте комментарий здесь"
+                        id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Title</label>
+                </div>
+
+                <div class="form-floating m-3">
+                    <textarea class="form-control border border-dark border-2" placeholder="Оставьте комментарий здесь" id="floatingTextarea2"
+                        style="height: 200px"></textarea>
+                    <label for="floatingTextarea2">Text</label>
+                </div>
+
+                <div class="form-floating m-3">
+                    <textarea class="form-control border border-dark border-2" placeholder="Оставьте комментарий здесь"
+                        id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Tags</label>
+                </div>
+
+                <div class="form-floating m-3">
+                    <button class="btn btn-outline-success border-sucess border-2" type="submit">ASK</button>
+                </div>
+
+
+
+
+            </content>
+
+        {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "inc/base.html" %}
+
+        {% block "content" %}
+
+            <content class="col">
+
+                <header class="d-flex align-items-center gap-4 m-2 ">
+                    <h2 class="">Tag:</h2>
+                    <h2 class="">{{ question.tag_name }}</h2>
+                </header>
+
+                {% include "inc/card.html" %}
+
+                <pagination aria-label="#" class="p-1">
+                    <ul class="pagination">
+                        <li class="border border-dark border-end-0 "><a
+                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
+                                href="#">Предыдущая</a></li>
+                        <li class="border border-dark border-end-0"><a
+                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
+                                href="#">1</a></li>
+                        <li class="border border-dark border-end-0"><a
+                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
+                                href="#">2</a></li>
+                        <li class="border border-dark border-end-0"><a
+                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
+                                href="#">3</a></li>
+                        <li class="border border-dark"><a
+                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
+                                href="#">Следующая</a></li>
+                    </ul>
+                </pagination>
+
+            </content>
+
+        {% endblock %}

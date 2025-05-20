@@ -1,0 +1,33 @@
+{% load static %}
+{% block card %}
+
+    <div class="card mt-4 d-flex border border-2 border-dark">
+        <div class="d-flex">
+            <div class="">
+                <div class="m-3" style="width: 75px; height: 75px;">
+                    <img class="img-thumbnail border border-dark" src="{% static 'img/ask.png' %}" alt="ask illustration">
+                </div>
+                <div class="m-3 border-dark">
+                    <input name="like" type="number" value="1" style="width: 40px;">
+                </div>
+            </div>
+            <div class="p-3">
+                <div class="card-body">
+                    <h3 class="card-title"><a href="{% url 'question' question.id %}">{{ question.title }}</a></h3>
+                    <p class="card-text">{{ question.text }}</p>
+                </div>
+                <div class="mt-2">
+                    <p class="card-text">
+                        <span><a href="#">answer ({{ answers }})</a></span>
+                        <span class="ms-4">Tags:</span>
+                        <span class="ms-1">
+                            <a href="{% url 'tag' question.tag_name %}">{{ question.tag_name }}</a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

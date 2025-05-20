@@ -20,7 +20,9 @@
                     placeholder="Search" aria-label="search">
             </form>
             <form class="d-flex" role="search">
-                <button class="btn btn-success border border-dark border-2" type="submit">ASK</button>
+                    <button class="btn btn-success border border-dark border-2" type="submit">
+                        <a href="{% url 'ask' %}" style="text-decoration: none; color: inherit;">ASK</a>
+                    </button>
             </form>
 
 
@@ -31,8 +33,8 @@
                 <div class="content">
                     <div class="content_name fw-bold">Dr. Pepper</div>
                     <div class="content_links">
-                        <a href="#">Settings</a>
-                        <a class="ms-1" href="#">Log out</a>
+                        <a href="{% url 'settings' %}">Settings</a>
+                        <a class="ms-1" href="{% url 'login' %}">Log out</a>
                     </div>
                 </div>
             </profile>
@@ -66,7 +68,7 @@
 {#                    <a class="me-2 text-warning link-underline link-underline-opacity-0" href="#">Firefox</a>#}
 
                     {% for tag in tags %}
-                        <a class="me-2 text-warning link-underline link-underline-opacity-0" href="#">{{ tag.tag_name }}</a>
+                        <a class="me-2 text-warning link-underline link-underline-opacity-0" href="{% url "tag" tag.tag_name %}">{{ tag.tag_name }}</a>
                     {% endfor %}
 
                 </div>

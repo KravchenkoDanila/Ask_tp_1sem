@@ -1,4 +1,6 @@
+
 {% extends "inc/base.html" %}
+{% load static %}
 
         {% block "content" %}
 
@@ -59,7 +61,7 @@
                             <th scope="row"></th>
                             <td colspan="">
                                 <div class="input-group mb-3" style="width: 150px; height: 150px;">
-                                    <img class="img-thumbnail border border-dark border-2" src="../static/img/ask.png"
+                                    <img class="img-thumbnail border border-dark border-2" src="{% static 'img/ask.png' %}"
                                         alt="ask ilustration">
                                 </div>
                             </td>

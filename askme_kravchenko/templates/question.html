@@ -34,86 +34,17 @@
 
                 <div class="border-bottom border-dark border-1 pb-3">
 
-                    <comment class="card mt-3 d-flex  border border-2 border-dark">
-                        <div class="d-flex">
-                            <div class="">
-                                <div class=" m-3" style="width: 75px; height: 75px;">
-                                    <img class="img-thumbnail border border-dark" src="{% static 'img/ask.png' %}" alt="ask ilustration">
-                                </div>
-                                <div class="m-3 border-dark ">
-                                    <a class="">
-                                        <input name="like" type="number" value="1" style="width: 40px;">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="p-3">
-                                <div class="dcard-body ">
-                                    <p class="card-text">Guys, i have trouble with a moon park. Lorem ipsum dolor sit, amet
-                                        consectetur adipisicing elit. Molestias animi odit placeat illum dolore laudantium,
-                                        modi fugiat? Quaerat quas fuga expedita iure molestiae, saepe nulla at accusantium?
-                                        Distinctio ea delectus quod pariatur, laborum dolore at exercitationem illum,
-                                        similique aperiam cupiditate!<br>Can't find th
-                                        black-jack...</p>
-                                </div>
-                                <div class="mt-2">
-                                    <input type="checkbox" name="correct" id="correkt_comment">
-                                    <span>Correct!</span>
-                                </div>
-                            </div>
-                        </div>
-                    </comment>
 
-                    <comment class="card mt-3 d-flex  border border-2 border-dark">
-                        <div class="d-flex">
-                            <div class="">
-                                <div class=" m-3" style="width: 75px; height: 75px;">
-                                    <img class="img-thumbnail border border-dark" src="{% static 'img/ask.png' %}" alt="ask ilustration">
-                                </div>
-                                <div class="m-3 border-dark ">
-                                    <a class="">
-                                        <input name="like" type="number" value="1" style="width: 40px;">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="p-3">
-                                <div class="dcard-body ">
-                                    <p class="card-text">Guys, i have trouble with a moon park. Lorem ipsum dolor sit, amet
-                                        consectetur adipisicing elit. Molestias animi odit placeat illum dolore laudantium,
-                                        modi fugiat? Quaerat quas fuga expedita iure molestiae, saepe nulla at accusantium?
-                                        Distinctio ea delectus quod pariatur, laborum dolore at exercitationem illum,
-                                        similique aperiam cupiditate!<br>Can't find th
-                                        black-jack...</p>
-                                </div>
-                                <div class="mt-2">
-                                    <input type="checkbox" name="correct" id="correkt_comment">
-                                    <span>Correct!</span>
-                                </div>
-                            </div>
-                        </div>
-                    </comment>
+                    {% for answer in page_obj %}
+                        {% include "inc/answer_card.html"%}
+                    {% endfor %}
 
-                    <pagination aria-label="#" class="p-1">
-                    <ul class="pagination">
-                        <li class="border border-dark border-end-0 "><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">Предыдущая</a></li>
-                        <li class="border border-dark border-end-0"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">1</a></li>
-                        <li class="border border-dark border-end-0"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">2</a></li>
-                        <li class="border border-dark border-end-0"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">3</a></li>
-                        <li class="border border-dark"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">Следующая</a></li>
-                    </ul>
-                </pagination>
+                    {% if is_paginated == True %}
+                        {% include "inc/pagination.html" %}
+                    {% endif %}
+
 
                 </div>
-
 
 
                 <answer>
@@ -122,7 +53,7 @@
                             style="height: 100px"></textarea>
                         <label for="floatingTextarea2">Enter our answer here...</label>
                     </div>
-        
+
                     <div class="form-floating mt-3 mb-3">
                         <button class="btn btn-outline-success border-sucess border-2" type="submit">Answer</button>
                     </div>

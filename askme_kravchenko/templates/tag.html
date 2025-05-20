@@ -6,30 +6,16 @@
 
                 <header class="d-flex align-items-center gap-4 m-2 ">
                     <h2 class="">Tag:</h2>
-                    <h2 class="">{{ question.tag_name }}</h2>
+                    <h2 class="">{{ page_title }}</h2>
                 </header>
 
-                {% include "inc/card.html" %}
+                {% for question in page_obj %}
+                    {% include "inc/question_card.html" with question=question %}
+                {% endfor %}
 
-                <pagination aria-label="#" class="p-1">
-                    <ul class="pagination">
-                        <li class="border border-dark border-end-0 "><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">Предыдущая</a></li>
-                        <li class="border border-dark border-end-0"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">1</a></li>
-                        <li class="border border-dark border-end-0"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">2</a></li>
-                        <li class="border border-dark border-end-0"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">3</a></li>
-                        <li class="border border-dark"><a
-                                class="fw-semibold page-link text-dark link-underline link-underline-opacity-0"
-                                href="#">Следующая</a></li>
-                    </ul>
-                </pagination>
+                {% if is_paginated == True %}
+                    {% include "inc/pagination.html" %}
+                {% endif %}
 
             </content>
 

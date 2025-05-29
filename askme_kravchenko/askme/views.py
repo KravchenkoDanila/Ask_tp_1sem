@@ -1,104 +1,202 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from . import models
+from django.contrib import auth
+from django.db.models import Sum
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+
+from .models import Question, Tag, Answer, Profile
 from .utils import paginate
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from .forms import LoginForm, SignupForm, SettingsForm, AddQuestionForm, AddAnswerForm
 
 
 def index(request):
-
-    paginated_data = paginate(models.questions, request)
+    questions = Question.objects.new()
+    paginated_data = paginate(questions, request)
 
     context = {
         'page_obj': paginated_data['page_obj'],
         'paginator': paginated_data['paginator'],
         'is_paginated': paginated_data['is_paginated'],
-        'tags': models.tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top()
     }
-    # print(paginated_data['is_paginated'])
+
     return render(request, 'index.html', context)
 
 
-def question(request, question_id):
+# def question(request, question_id):
+#     question = get_object_or_404(Question.objects.with_like_sum(), pk=question_id)
+#     answers = Answer.objects.for_question(question_id)
+#     paginated_answers = paginate(answers, request)
+#
+#     context = {
+#         'question': question,
+#         'page_obj': paginated_answers['page_obj'],
+#         'paginator': paginated_answers['paginator'],
+#         'is_paginated': paginated_answers['is_paginated'],
+#         'tags': Tag.objects.popular(),
+#     }
+#
+#     return render(request, 'question.html', context)
 
-    paginated_answers = paginate(models.answers, request)
+
+def question(request, question_id):
+    question = get_object_or_404(Question.objects.with_like_sum(), pk=question_id)
+    answers = Answer.objects.for_question(question_id)
+    paginated_answers = paginate(answers, request)
+
+    if request.user.is_authenticated:
+        form = AddAnswerForm(request.POST or None)
+        if form.is_valid():
+            form.save(author=request.user.profile, question=question)
+            return redirect('question', question_id=question_id)
+    else:
+        return redirect('Login')
 
     context = {
-        'question': models.questions[question_id - 1],
+        'question': question,
         'page_obj': paginated_answers['page_obj'],
         'paginator': paginated_answers['paginator'],
         'is_paginated': paginated_answers['is_paginated'],
-        'tags': models.tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top(),
+        'form': form
     }
 
     return render(request, 'question.html', context)
 
 
 def hot(request):
-    questions_page = paginate(models.questions, request)
+    questions = Question.objects.best()
+    paginated_data = paginate(questions, request)
 
     context = {
-        'questions': questions_page,
-        'tags': models.tags,
+        'page_obj': paginated_data['page_obj'],
+        'paginator': paginated_data['paginator'],
+        'is_paginated': paginated_data['is_paginated'],
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top()
     }
+
     return render(request, 'hot.html', context)
 
 
 def tag(request, tag_name):
-    tag_questions = []
-    for i in models.questions:
-        if i['tag_name'] == tag_name:
-            tag_questions.append(i)
+    try:
+        questions = Question.objects.filter(tags__name=tag_name).annotate(
+            like_sum=Sum('question_likes__value')
+        ).distinct()
+    except Exception as e:
+        raise Http404("Тег не существует")
 
-    paginated_answers = paginate(tag_questions, request)
+    if not questions.exists():
+        raise Http404(f"Нет вопросов по тегу {tag_name}")
+
+    paginated_data = paginate(questions, request)
 
     context = {
-        'page_obj': paginated_answers['page_obj'],
-        'paginator': paginated_answers['paginator'],
-        'is_paginated': paginated_answers['is_paginated'],
+        'page_obj': paginated_data['page_obj'],
+        'paginator': paginated_data['paginator'],
+        'is_paginated': paginated_data['is_paginated'],
         'page_title': tag_name,
-        'tags': models.tags
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top()
     }
+
     return render(request, 'tag.html', context)
-        # return 404
 
 
-def login(request):
-    context = {'tags': models.tags}
+def log_in(request):
+    form = LoginForm(request.POST or None)
+    if form.is_valid():
+        user = authenticate(
+            request,
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password']
+        )
+        if user:
+            auth.login(request, user)
+            return redirect('/')
+
+    context = {
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top(),
+        'form': form
+    }
     return render(request, 'login.html', context)
 
 
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
 def signup(request):
-    context = {'tags': models.tags}
+    form = SignupForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        user = form.save(commit=True)
+        auth.login(request, user)
+        return redirect('/')
+    context = {
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top(),
+        'form': form
+    }
     return render(request, 'register.html', context)
 
 
+
+@login_required
 def settings(request):
-    context = {'tags': models.tags}
+    profile = request.user.profile  # <-- Получаем существующий профиль
+
+    form = SettingsForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=profile,  # <-- Передаем instance, чтобы редактировать, а не создавать
+        user=request.user
+    )
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('settings')
+    context = {
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top(),
+        'form': form
+    }
+
     return render(request, 'settings.html', context)
 
 
+@login_required
 def ask(request):
-    context = {'tags': models.tags}
+    form = AddQuestionForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        question = form.save(commit=True, author=request.user.profile)
+        return redirect('question', question_id=question.id)
+    context = {
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.top(),
+        'form': form
+    }
     return render(request, 'ask.html', context)
 
 
+# def login(request):
+#     return render(request, 'login.html', {'tags': Tag.objects.popular()})
+#
+#
+# def signup(request):
+#     return render(request, 'register.html', {'tags': Tag.objects.popular()})
 
-# def index(request):
-#
-#     questions_page = paginate(models.questions, request)
-#
-#     context = {
-#         'questions': models.questions,
-#         'tags': models.tags,
-#     }
-#
-#     return render(request, 'index.html', context)
 
-#
-# def question(request, question_id):
-#
-#     answers_page = paginate(models.ansvers, request)
-#
-#     context = {'question': models.questions[question_id - 1], 'tags': models.tags, 'answers': answers_page}
-#
-#     return render(request, 'question.html', context)
+# def settings(request):
+#     return render(request, 'settings.html', {'tags': Tag.objects.popular()})
+
+
+# def ask(request):
+#     return render(request, 'ask.html', {'tags': Tag.objects.popular()})

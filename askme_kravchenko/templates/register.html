@@ -1,126 +1,23 @@
-{% extends "inc/base.html" %}
+{% extends 'inc/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
 
-        {% block "content" %}
+{% block title %}
+    <title>Register</title>
+{% endblock %}
 
-            <content class="col ms-5">
+{% block content_name %}
+    <h1>Registration</h1>
+{% endblock %}
 
-                <table class="table table-borderless">
-
-                    <tbody>
-
-                        <tr>
-                            <th style="width: 15%;" scope="row"></th>
-                            <td style="width: 40%;">
-                                <header class="d-flex align-items-center gap-4 mt-2 mb-2">
-                                    <h2 class="">Registration</h2>
-                                </header>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th style="width: 15%;" scope="row"></th>
-                            <td style="width: 40%;">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2"
-                                        id="inputGroup-sizing-default">Login</span>
-                                    <input type="text" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th style="width: 15%;" scope="row"></th>
-                            <td style="width: 40%;">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2"
-                                        id="inputGroup-sizing-default">Email</span>
-                                    <input type="email" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th style="width: 15%;" scope="row"></th>
-                            <td style="width: 40%;">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2"
-                                        id="inputGroup-sizing-default">NickName</span>
-                                    <input type="text" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td>
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2"
-                                        id="inputGroup-sizing-default">Password</span>
-                                    <input type="password" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td>
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2"
-                                        id="inputGroup-sizing-default">Repeat password</span>
-                                    <input type="password" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td colspan="">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <input type="file" class="form-control border border-dark border-2"
-                                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                                        aria-label="Загрузка">
-
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td colspan="2">
-                                <div class="form-floating mb-3">
-                                    <button class="btn btn-outline-success border-sucess border-2"
-                                        type="submit">Log In!</button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td colspan="">
-                                <div class="input-group mb-3" style="width: 150px; height: 150px;">
-                                    <a class="" href="#">create new account</a>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-
-            </content>
-
-        {% endblock %}
+{% block content %}
+    <div class="col-9 d-flex flex-column gap-2" style="height: 70vh;">
+        <form action="" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2 h-100">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Register</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}

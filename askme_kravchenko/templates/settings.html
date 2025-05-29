@@ -1,100 +1,19 @@
-
-{% extends "inc/base.html" %}
+{% extends 'inc/base.html' %}
 {% load static %}
-
-        {% block "content" %}
-
-            <content class="col ms-5">
-
-                <header class="d-flex align-items-center gap-4 m-4">
-                    <h2 class="">Settings:</h2>
-                    <h2 class="">DR. Pepper</h2>
-                </header>
+{% load bootstrap5 %}
 
 
 
-                <table class="table table-borderless">
-
-                    <tbody>
-
-                        <tr>
-                            <th style="width: 15%;" scope="row"></th>
-                            <td style="width: 40%;">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2" style="width: 120px;"
-                                        id="inputGroup-sizing-default">Login</span>
-                                    <input type="text" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label=""
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td>
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2" style="width: 120px;"
-                                        id="inputGroup-sizing-default">Email</span>
-                                    <input type="Email" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td colspan="2">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <span class="input-group-text border border-dark border-2" style="width: 120px;"
-                                        id="inputGroup-sizing-default">NickName</span>
-                                    <input type="text" class="form-control border border-dark border-2 border-start-0"
-                                        aria-label="Пример размера поля ввода"
-                                        aria-describedby="inputGroup-sizing-default">
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td colspan="">
-                                <div class="input-group mb-3" style="width: 150px; height: 150px;">
-                                    <img class="img-thumbnail border border-dark border-2" src="{% static 'img/ask.png' %}"
-                                        alt="ask ilustration">
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row"></th>
-                            <td colspan="">
-                                <div class="input-group mb-3" style="width: 500px;">
-                                    <input type="file" class="form-control border border-dark border-2"
-                                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                                        aria-label="Загрузка">
-
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th style="width: 15%;" scope="row"></th>
-                            <td style="width: 40%;">
-                                <div class="form-floating mb-3">
-                                    <button class="btn btn-outline-success border-sucess border-2"
-                                        type="submit">Save</button>
-                                </div>
-
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-
-            </content>
-
-        {% endblock %}
+{% block content %}
+    <h1>Settings: {{ request.user.username }}</h1>
+    <p></p>
+    <div class="col-9 d-flex flex-column gap-2" style="height: 70vh;">
+        <form action="#" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2 h-100">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Save</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}

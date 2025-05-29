@@ -1,7 +1,7 @@
-
 {% extends "inc/base.html" %}
 {% load static %}
-        {% block "content" %}
+{% load bootstrap5 %}
+        {% block content %}
 
             <content class="col">
 
@@ -12,7 +12,7 @@
                         </div>
                         <div class="m-3 border-dark ">
                             <a class="">
-                                <input name="like" type="number" value="1" style="width: 40px;">
+                                <input name="like" type="number" value="{{ question.like_sum|default_if_none:"0" }}" style="width: 40px;">
                             </a>
                         </div>
                     </div>
@@ -25,7 +25,9 @@
                             <p class="card-text">
                                 <span class="me-3">Tags:</span>
                                 <span>
-                                    <span><a href="#">{{ question.tag_name }}</a></span>
+                                    {% for tag in question.tags.all %}
+                                        <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+                                    {% endfor %}
                                 </span>
                             </p>
                         </div>
@@ -48,15 +50,15 @@
 
 
                 <answer>
-                    <div class="form-floating mt-3">
-                        <textarea class="form-control border border-dark border-2" placeholder="Оставьте комментарий здесь" id="floatingTextarea2"
-                            style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Enter our answer here...</label>
-                    </div>
-
-                    <div class="form-floating mt-3 mb-3">
-                        <button class="btn btn-outline-success border-sucess border-2" type="submit">Answer</button>
-                    </div>
+                    <form action="#" method="POST" class="d-flex flex-column mt-3 gap-2">
+                        {% csrf_token %}
+                        <div class="input-group mb-3" style="height: 100px;">
+                            {% bootstrap_form form form_group_class="border border-dark border-2 input-group mb-3 rounded" %}
+                        </div>
+                        {% buttons %}
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Answer</button>
+                        {% endbuttons %}
+                    </form>
                 </answer>
 
 
